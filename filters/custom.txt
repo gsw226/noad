@@ -7,3 +7,9 @@
 www.naver.com##div[class^="Layout-module__banner_area"]
 ! YouTube checks this script to detect blockers
 @@||static.doubleclick.net/instream/ad_status.js$domain=youtube.com
+! YouTube home/feed ads, broader than EasyList's child-combinator rules
+youtube.com##ytd-rich-item-renderer:has(ytd-ad-slot-renderer)
+youtube.com##ytd-ad-slot-renderer
+youtube.com###masthead-ad
+youtube.com##ytd-banner-promo-renderer
+youtube.com##ytd-statement-banner-renderer
