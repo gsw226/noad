@@ -19,5 +19,7 @@ Then press reload on the extension card.
 ## What it does
 
 - Network blocking: filter lists converted to `declarativeNetRequest` rules by `@eyeo/abp2dnr` (`ext/rules.json`).
+- Extra rules: `filters/custom.txt` (Naver ad servers, Naver home ad slots).
+- YouTube video ads: `ext/yt.js` strips ad data from player responses and skips any ad that still plays.
 - Element hiding: generic `##` selectors in `ext/hide.css`, per-site `domain##` selectors in `ext/content.js`.
-- Not handled: extended cosmetic syntax (`#?#`, `#$#`, `:-abp-*`), per-site hiding exceptions, YouTube video ads.
+- Not handled: extended cosmetic syntax (`#?#`, `#$#`, `:-abp-*`), per-site hiding exceptions.

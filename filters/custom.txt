@@ -1,0 +1,9 @@
+! noad custom filters (Adblock Plus syntax)
+! Naver ad servers and the GFP ad SDK
+||veta.naver.com^
+||pstatic.net/tveta/
+||sstatic.naver.net/tveta/
+! Empty ad slots left on the Naver home page
+www.naver.com##div[class^="Layout-module__banner_area"]
+! YouTube checks this script to detect blockers
+@@||static.doubleclick.net/instream/ad_status.js$domain=youtube.com

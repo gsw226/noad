@@ -1,6 +1,6 @@
 // Downloads filter lists and writes ext/rules.json, ext/hide.css, ext/content.js.
 import { execFileSync } from "node:child_process";
-import { writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 
 const LISTS = [
   "https://easylist.to/easylist/easylist.txt",
@@ -12,7 +12,7 @@ const text = (await Promise.all(LISTS.map(async (u) => {
   const r = await fetch(u);
   if (!r.ok) throw new Error(`${u}: HTTP ${r.status}`);
   return r.text();
-}))).join("\n");
+}))).concat(readFileSync("filters/custom.txt", "utf8")).join("\n");
 
 // Network rules: abp2dnr ignores cosmetic lines itself.
 const rules = JSON.parse(execFileSync("npx", ["abp2dnr"], { input: text, maxBuffer: 1 << 28 }));
