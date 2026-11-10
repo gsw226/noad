@@ -5,6 +5,10 @@ const strip = (o) => {
   if (o && typeof o === "object") {
     for (const k of AD_KEYS) delete o[k];
     if (o.playerResponse) strip(o.playerResponse);
+    // Shorts feed (reel_watch_sequence): every few entries is an ad reel.
+    if (Array.isArray(o.entries)) {
+      o.entries = o.entries.filter((e) => !e?.command?.reelWatchEndpoint?.adClientParams?.isAd);
+    }
   }
   return o;
 };
