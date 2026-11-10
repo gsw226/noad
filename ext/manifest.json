@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "noad",
+  "version": "0.1.0",
+  "description": "Blocks ads with EasyList + KoreanList.",
+  "permissions": ["declarativeNetRequest"],
+  "declarative_net_request": {
+    "rule_resources": [{ "id": "filters", "enabled": true, "path": "rules.json" }]
+  },
+  "content_scripts": [{
+    "matches": ["<all_urls>"],
+    "css": ["hide.css"],
+    "js": ["content.js"],
+    "run_at": "document_start",
+    "all_frames": true
+  }]
+}
