@@ -1,14 +1,24 @@
 // Runs in YouTube's page (MAIN world) at document_start.
-// 1) Strip ad data from player responses so ads never get scheduled.
-const AD_KEYS = ["adPlacements", "adSlots", "playerAds"];
-const strip = (o) => {
-  if (o && typeof o === "object") {
+// 1) Strip ads from every YouTube data response (player, home, search, watch page, Shorts)
+//    so they are never rendered and leave no gaps.
+const AD_KEYS = ["adPlacements", "adSlots", "playerAds", "adBreakHeartbeatParams"];
+const AD_ITEMS = new Set([
+  "adSlotRenderer", "promotedSparklesWebRenderer", "searchPyvRenderer", "promotedVideoRenderer",
+  "compactPromotedVideoRenderer", "merchandiseShelfRenderer", "statementBannerRenderer",
+  "bannerPromoRenderer", "mealbarPromoRenderer",
+]);
+const isAd = (e) => {
+  if (!e || typeof e !== "object") return false;
+  for (const k in e) if (AD_ITEMS.has(k)) return true;
+  return !!(e.richItemRenderer?.content?.adSlotRenderer || e.command?.reelWatchEndpoint?.adClientParams?.isAd);
+};
+const strip = (o, depth = 0) => {
+  if (!o || typeof o !== "object" || depth > 80) return o;
+  if (Array.isArray(o)) {
+    for (let i = o.length - 1; i >= 0; i--) if (isAd(o[i])) o.splice(i, 1); else strip(o[i], depth + 1);
+  } else {
     for (const k of AD_KEYS) delete o[k];
-    if (o.playerResponse) strip(o.playerResponse);
-    // Shorts feed (reel_watch_sequence): every few entries is an ad reel.
-    if (Array.isArray(o.entries)) {
-      o.entries = o.entries.filter((e) => !e?.command?.reelWatchEndpoint?.adClientParams?.isAd);
-    }
+    for (const k in o) strip(o[k], depth + 1);
   }
   return o;
 };
@@ -16,12 +26,11 @@ const parse = JSON.parse;
 JSON.parse = function (...args) { return strip(parse.apply(this, args)); };
 const json = Response.prototype.json;
 Response.prototype.json = async function () { return strip(await json.call(this)); };
-let initial;
-Object.defineProperty(window, "ytInitialPlayerResponse", {
-  configurable: true,
-  get: () => initial,
-  set: (v) => { initial = strip(v); },
-});
+// First page load embeds these as inline script globals instead of fetching them.
+for (const name of ["ytInitialPlayerResponse", "ytInitialData"]) {
+  let value;
+  Object.defineProperty(window, name, { configurable: true, get: () => value, set: (v) => { value = strip(v); } });
+}
 
 // 2) Fallback if an ad still plays: jump to its end and press skip.
 // ponytail: YouTube renames these classes now and then; update selectors when ads reappear.
