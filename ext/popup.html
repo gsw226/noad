@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="ko">
+<meta charset="utf-8">
+<style>
+  :root { color-scheme: light dark; --bg: #fff; --fg: #1d1d1f; --muted: #6e6e73; --line: #e5e5ea; --on: #e5484d; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #1c1c1e; --fg: #f5f5f7; --muted: #98989d; --line: #2c2c2e; } }
+  body { margin: 0; width: 260px; font: 14px -apple-system, system-ui, sans-serif; background: var(--bg); color: var(--fg); }
+  label { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px; cursor: pointer; }
+  label + label { border-top: 1px solid var(--line); }
+  small { display: block; color: var(--muted); font-size: 12px; margin-top: 2px; overflow-wrap: anywhere; }
+  input { appearance: none; flex: none; width: 36px; height: 22px; border-radius: 11px; background: var(--line); position: relative; cursor: pointer; transition: background .15s; }
+  input::after { content: ""; position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; border-radius: 50%; background: #fff; transition: transform .15s; }
+  input:checked { background: var(--on); }
+  input:checked::after { transform: translateX(14px); }
+  input:disabled { opacity: .4; cursor: default; }
+  input:focus-visible { outline: 2px solid var(--on); outline-offset: 2px; }
+</style>
+<label>광고 차단<input type="checkbox" id="enabled"></label>
+<label><span>이 사이트에서 차단<small id="site"></small></span><input type="checkbox" id="here"></label>
+<script src="popup.js"></script>
+</html>

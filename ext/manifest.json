@@ -1,10 +1,12 @@
 {
   "manifest_version": 3,
   "name": "noad",
-  "version": "0.1.0",
-  "description": "Blocks ads with EasyList + KoreanList.",
+  "version": "0.2.0",
+  "description": "Blocks ads with EasyList + KoreanList, with per-site and global toggles.",
   "permissions": [
-    "declarativeNetRequest"
+    "declarativeNetRequest",
+    "scripting",
+    "storage"
   ],
   "declarative_net_request": {
     "rule_resources": [
@@ -15,29 +17,26 @@
       }
     ]
   },
-  "content_scripts": [
-    {
-      "matches": [
-        "<all_urls>"
-      ],
-      "css": [
-        "hide.css"
-      ],
-      "js": [
-        "content.js"
-      ],
-      "run_at": "document_start",
-      "all_frames": true
-    },
-    {
-      "matches": [
-        "*://*.youtube.com/*"
-      ],
-      "js": [
-        "yt.js"
-      ],
-      "run_at": "document_start",
-      "world": "MAIN"
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "bg.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "noad",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
     }
-  ]
+  },
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  }
 }
