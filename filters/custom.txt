@@ -13,3 +13,64 @@ youtube.com##ytd-ad-slot-renderer
 youtube.com###masthead-ad
 youtube.com##ytd-banner-promo-renderer
 youtube.com##ytd-statement-banner-renderer
+
+! ---- Ad networks EasyList leaves alone ----
+! Kakao AdFit / Daum display ads
+||t1.daumcdn.net/kas/
+||t1.kakaocdn.net/kas/
+||t1.kakaocdn.net/biz/ui/ad/
+||display.ad.daum.net^
+||shop-redapi.daum.net^
+! Korean ad networks
+||mobwithad.com^
+||aceplanet.co.kr^
+||megadata.co.kr^
+||mobon.net^$third-party
+||dable.io^$third-party
+! Sponsored-content / retargeting networks
+||taboola.com^$third-party
+||outbrain.com^$third-party
+||criteo.com^$third-party
+||criteo.net^$third-party
+! Google remarketing pixels
+||google.com/rmkt/
+||google.co.kr/ads/ga-audiences
+||google.com/ads/ga-audiences
+! First-party ad folders
+||zdnet.co.kr/ads/
+
+! ---- Ad slots on Korean sites ----
+search.naver.com##.ad_section
+m.search.naver.com##section._pwl_video_container
+daum.net##.board_banner
+daum.net##li[id^="kakao_ad_"]
+search.daum.net##.ad_sch
+search.daum.net##.wrap_ad
+search.daum.net##.content_sponsor
+nate.com##div[class^="area_ad"]
+nate.com##.ad_area_bottom
+nate.com###mallAdList
+ppomppu.co.kr##.floating-banner
+mlbpark.donga.com##.big_banner
+bobaedream.co.kr##.main-cyber-ad
+donga.com##.banner_adswipe
+donga.com##div[class*="main_aside_ad"]
+donga.com##.mainad_box
+donga.com##.da_corp_area
+hani.co.kr##div[class*="BaseAd_adWrapper"]
+hani.co.kr##div[class*="MainTopArticleListType2_ad"]
+yna.co.kr##li.advertisement
+mk.co.kr##.ad_inhouse_full
+mk.co.kr##.ad_inhouse_300
+mk.co.kr##.inhouse_contents_ad
+hankyung.com##.main-pr-banner
+hankyung.com##.showcase-banner
+danawa.com###nestads_ads_iframe_container
+danawa.com##.main-adsmart
+gmarket.co.kr##.box__head-ad
+search.naver.com##li:has(a[href*="adcr.naver.com"])
+search.naver.com##.api_common_banner
+yna.co.kr##.aside-top-bnr01
+||adservice.sbs.co.kr^
+||img.sbs.co.kr/news/ad/
+search.naver.com##li:has(a[href*="ader.naver.com"])
